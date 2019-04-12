@@ -2,7 +2,7 @@
   "name": "Testnet",
   "id": "testnet",
   "bootNodes": [
-    "/ip4/127.0.0.1/tcp/30333/p2p/QmWPTv4ojnAJjmx3nbSgZsBVN8HLb5q4XwvELX9eUHwfHy"
+    "/ip4/108.61.178.131/tcp/30333/p2p/QmUkNJYQWSpQfhQwoGBG2jgLriWnTjpgRqtG1h1KK2bZuD"
   ],
   "telemetryEndpoints": null,
   "protocolId": null,
