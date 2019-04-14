@@ -18,11 +18,11 @@ cargo run -- --base-path /tmp/bob --bootnodes /ip4/127.0.0.1/tcp/30333/p2p/QmQZ8
 
 ### How to clean local state?
 ```bash
-cargo run -purge-chain --base-path /tmp/alice --chain=local
-cargo run -purge-chain --base-path /tmp/bob  --chain=local
+cargo run -- purge-chain --base-path /tmp/alice --chain=local
+cargo run -- purge-chain --base-path /tmp/bob  --chain=local
 ```
 
 ## How to join the testnet?
 ```bash
-cargo run -- --chain chainspec-testnet.json --name yournodename
+cargo run -- --name yournodename
 ```

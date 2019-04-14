@@ -6,6 +6,7 @@ use asure_runtime::{ConsensusConfig, CouncilSeatsConfig, CouncilVotingConfig, De
 pub use asure_runtime::GenesisConfig;
 use substrate_service;
 use hex_literal::{hex, hex_impl};
+//use std::intrinsics::atomic_load;
 
 
 // Note this is the URL for the telemetry server
@@ -22,9 +23,11 @@ pub enum Alternative {
     /// Whatever the current runtime is, with just Alice as an auth.
     Development,
     /// Whatever the current runtime is, with simple Alice/Bob auths.
-    LocalTestnet,
     /// Whatever the current runtime is.
     Testnet,
+    LocalTestnet,
+    /// Whatever the current runtime is with the "global testnet" defaults.
+    StagingTestnet,
 }
 
 
@@ -42,15 +45,17 @@ impl Alternative {
         Ok(match self {
             Alternative::Development => development_config(),
             Alternative::LocalTestnet => local_testnet_config(),
-            Alternative::Testnet => staging_testnet_config(),
+            Alternative::StagingTestnet => staging_testnet_config(),
+            Alternative::Testnet => testnet_config()?,
         })
     }
 
     pub(crate) fn from(s: &str) -> Option<Self> {
         match s {
             "dev" => Some(Alternative::Development),
-            "" | "local" => Some(Alternative::LocalTestnet),
-            "testnet" => Some(Alternative::Testnet),
+            "local" => Some(Alternative::LocalTestnet),
+            "staging" => Some(Alternative::StagingTestnet),
+            "" | "testnet" => Some(Alternative::Testnet),
             _ => None,
         }
     }
@@ -78,6 +83,10 @@ pub fn get_authority_keys_from_seed(seed: &str) -> (AccountId, AccountId, Author
         get_account_id_from_seed(seed),
         get_session_key_from_seed(seed)
     )
+}
+
+pub fn testnet_config() -> Result<ChainSpec, String> {
+    ChainSpec::from_embedded(include_bytes!("../chainspec-testnet.json"))
 }
 
 /// Helper function to create GenesisConfig for testing
@@ -265,11 +274,11 @@ fn staging_testnet_config_genesis() -> GenesisConfig {
                  hex!["6cc2e87b7b16964f9ab568f3ac1056bd9c5fcbbc266f4dbcda8d1b1eb8dad551"].unchecked_into(), // 5Ef78yxqfaxVzrFCemYcSgwVtMV85ywykhLNm5WKTsZV22HZ
                  hex!["6668a327019046c50640fa74804fa15299fa2be1ca4e6135c5d03348b53a9a4b"].unchecked_into(), // 5HWfszmRMbzcjGmumYkkHtNJbi9y428JHgPeftVenvDgVUjh
                  hex!["5d4cd1948f28af780d1126cd326f16c1f346e64f96d9ee3717f1f3b6827dafcc"].unchecked_into(), // 5HBoHDLMR4jPwB6BCLyd2qfYBHytFhGs8fsa1h5PzhYd3WBq
-             )/*, (
-                 hex!["2254035a15597c1c19968be71593d2d0131e18ae90049e49178970f583ac3e17"].unchecked_into(), // 5CqiScHtxUatcQpck1tUks51o3pSjKsdCi2CLEHvMM7tc4Qi
-                 hex!["eacb8edf6b05cb909a3d2bd8c6bffb13be3069ec6a69f1fa25e46103c5190267"].unchecked_into(), // 5HNZXnSgw21idbuegTC1J8Txkja97RPnnWkX68ewnrJDec2Z
-                 hex!["e19b6b89729a41638e57dead9c993425287d386fa4963306b63f018732843495"].unchecked_into(), // 5HAWoPYfyYFHjacy8H2MDmHra7jVrPtBfFMPgd8CadpSqotL
              ), (
+                 hex!["58b5e29d624b9199368254450b26706c5b5e28a4283ababbfcdb7c2a7de7bf1c"].unchecked_into(), // 5CqiScHtxUatcQpck1tUks51o3pSjKsdCi2CLEHvMM7tc4Qi
+                 hex!["5d4cd1948f28af780d1126cd326f16c1f346e64f96d9ee3717f1f3b6827dafcc"].unchecked_into(), // 5HNZXnSgw21idbuegTC1J8Txkja97RPnnWkX68ewnrJDec2Z
+                 hex!["da2584a046a400b4fa40e9bf7ac1e196cbb5b716e03c0fd7946a59c78b4572bf"].unchecked_into(), // 5HAWoPYfyYFHjacy8H2MDmHra7jVrPtBfFMPgd8CadpSqotL
+             ),/* (
                  hex!["fe6211db8bd436e0d1cf37398eac655833fb47497e0f72ec00ab160c88966b7e"].unchecked_into(), // 5HpF9orzkmJ9ga3yrzNS9ckifxF3tbQjadEmCEiZJQ2fPgun
                  hex!["f06dd616c75cc4b2b01f325accf79b4f66a525ede0a59f48dcce2322b8798f5c"].unchecked_into(), // 5HVwyfB3LRsFXm7frEHDYyhwdpTYDRWxEqDKBYVyLi6DsPXq
                  hex!["1be80f2d4513a1fbe0e5163874f729baa5498486ac3914ac3fe2e1817d7b3f44"].unchecked_into(), // 5ChJ5wjqy2HY1LZw1EuQPGQEHgaS9sFu9yDD6KRX7CzwidTN
