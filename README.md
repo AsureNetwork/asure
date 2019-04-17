@@ -22,6 +22,12 @@ cargo run -- purge-chain --base-path /tmp/alice --chain=local
 cargo run -- purge-chain --base-path /tmp/bob  --chain=local
 ```
 
+## How to setup testnet?
+```bash
+asure --key $secret//elm//session//1  --validator --name asure1
+asure --key $secret//elm//session//2  --validator --name asure2
+```
+
 ## How to join the testnet?
 ```bash
 cargo run -- --name yournodename
