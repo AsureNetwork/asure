@@ -6,11 +6,13 @@ use asure_runtime::{ConsensusConfig, CouncilSeatsConfig, CouncilVotingConfig, De
 pub use asure_runtime::GenesisConfig;
 use substrate_service;
 use hex_literal::{hex, hex_impl};
+use telemetry::TelemetryEndpoints;
+
 //use std::intrinsics::atomic_load;
 
 
 // Note this is the URL for the telemetry server
-//const STAGING_TELEMETRY_URL: &str = "wss://telemetry.polkadot.io/submit/";
+const STAGING_TELEMETRY_URL: &str = "wss://telemetry.polkadot.io/submit/";
 
 /// Specialized `ChainSpec`. This is a specialization of the general Substrate ChainSpec type.
 pub type ChainSpec = substrate_service::ChainSpec<GenesisConfig>;
@@ -254,7 +256,7 @@ pub fn staging_testnet_config() -> ChainSpec {
         "staging_testnet",
         staging_testnet_config_genesis,
         boot_nodes,
-        None,//Some(TelemetryEndpoints::new(vec![(STAGING_TELEMETRY_URL.to_string(), 0)])),
+        Some(TelemetryEndpoints::new(vec![(STAGING_TELEMETRY_URL.to_string(), 0)])),
         None,
         None,
         None,

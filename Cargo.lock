@@ -141,6 +141,7 @@ dependencies = [
  "substrate-network 0.1.0 (git+https://github.com/paritytech/substrate.git?rev=b2e6b08a8f094ee34704905a92cd47df6178901e)",
  "substrate-primitives 1.0.0 (git+https://github.com/paritytech/substrate.git?rev=b2e6b08a8f094ee34704905a92cd47df6178901e)",
  "substrate-service 1.0.0 (git+https://github.com/paritytech/substrate.git?rev=b2e6b08a8f094ee34704905a92cd47df6178901e)",
+ "substrate-telemetry 1.0.0 (git+https://github.com/paritytech/substrate.git?rev=b2e6b08a8f094ee34704905a92cd47df6178901e)",
  "substrate-transaction-pool 1.0.0 (git+https://github.com/paritytech/substrate.git?rev=b2e6b08a8f094ee34704905a92cd47df6178901e)",
  "tokio 0.1.18 (registry+https://github.com/rust-lang/crates.io-index)",
  "trie-root 0.12.2 (registry+https://github.com/rust-lang/crates.io-index)",

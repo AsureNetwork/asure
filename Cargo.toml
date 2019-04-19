@@ -19,6 +19,11 @@ git = 'https://github.com/paritytech/substrate.git'
 package = 'substrate-consensus-aura'
 rev = 'b2e6b08a8f094ee34704905a92cd47df6178901e'
 
+[dependencies.telemetry]
+git = 'https://github.com/paritytech/substrate.git'
+package = 'substrate-telemetry'
+rev = 'b2e6b08a8f094ee34704905a92cd47df6178901e'
+
 [dependencies.grandpa]
 git = 'https://github.com/paritytech/substrate.git'
 package = 'substrate-finality-grandpa'
